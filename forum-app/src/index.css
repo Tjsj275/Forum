@@ -1,89 +1,432 @@
 /* Global Styles */
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Nunito', 'Segoe UI', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f9;
-  color: #333;
-}
-
-h1 {
-  text-align: center;
-  margin-top: 20px;
+  background-color: #f7f9f7;
+  color: #2c3e50;
+  line-height: 1.6;
 }
 
 .container {
   width: 90%;
-  max-width: 1200px;
-  margin: auto;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px 0;
 }
 
-/* Post List Styles */
+/* Header Styles */
+h1 {
+  text-align: center;
+  margin: 20px 0 30px;
+  color: #2d5d46;
+  font-weight: 700;
+  font-size: 2.5rem;
+  letter-spacing: 0.5px;
+}
+
+/* Forum Header with Ask Question Button */
+.forum-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.forum-header h1 {
+  margin: 0;
+}
+
+/* Questions/Posts List */
 .post {
   background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 15px;
-  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+  margin-bottom: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-left: 5px solid #3a7561;
+  position: relative;
+}
+
+.post:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
 }
 
 .post h2 {
   cursor: pointer;
-  color: #00ff88;
+  color: #3a7561;
+  margin-top: 0;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
 }
 
 .post h2:hover {
-  text-decoration: underline;
+  color: #4caf50;
 }
 
-.post p {
-  margin: 10px 0;
+.post-stats {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.votes-count {
+  margin-right: 15px;
+  font-weight: 500;
+}
+
+.votes-count span {
+  color: #2d5d46;
+  font-weight: 600;
+}
+
+.post-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.post-author {
+  font-size: 0.9rem;
+  color: #7f8c8d;
+}
+
+.post-author span {
+  color: #3a7561;
+  font-weight: 600;
+}
+
+/* Voting Buttons */
+.vote-buttons {
+  display: flex;
+  gap: 15px; /* Increased space between upvote and downvote */
 }
 
 button {
-  background-color: #00ff88;
+  background-color: #3a7561;
   color: white;
-  border: groove;
-  padding: 8px 12px;
-  border-radius: 3px;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 button:hover {
-  background-color: #00ff88;
+  background-color: #4caf50;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Comment Section */
-.comments {
-  margin-top: 20px;
+button:active {
+  transform: translateY(0);
 }
 
-.comments h3 {
+button.ask-question {
+  background-color: #2d5d46;
+  padding: 12px 20px;
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+button.upvote {
+  background-color: #3a7561;
+  margin-right: 10px; /* Additional right margin */
+}
+
+button.downvote {
+  background-color: #496b5a;
+}
+
+/* Fix for current layout */
+.post .upvote, .post .downvote {
+  display: block;
+  margin-bottom: 10px; /* Space between vertically stacked buttons */
+}
+
+/* Specific styling for your current layout where buttons are vertically stacked */
+.post button {
   margin-bottom: 10px;
 }
 
-.comments p {
-  background-color: #f9f9f9;
-  padding: 10px;
-  border-radius: 5px;
+.post button:last-child {
+  margin-bottom: 0;
 }
 
-/* Textarea */
-textarea {
-  width: calc(100% - 20px);
-  padding: 10px;
+/* Votes display */
+.votes {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 15px;
 }
 
-/* Form Styles */
+.votes-label {
+  font-weight: 500;
+  color: #7f8c8d;
+}
+
+/* Optional: Add animation for page loading */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.post {
+  animation: fadeIn 0.3s ease forwards;
+  animation-delay: calc(var(--index) * 0.1s);
+  opacity: 0;
+}
+
+/* Add vertical left border styling to match your current layout */
+.post {
+  border-left: 5px solid #3a7561;
+  padding-left: 20px;
+}
+
+/* Ask a Question Form Styling */
+.question-form {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+  margin-bottom: 30px;
+  border-left: 5px solid #2d5d46;
+}
+
+.question-form h2 {
+  color: #2d5d46;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.form-group input[type="text"],
+.form-group textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+  border-color: #3a7561;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(58, 117, 97, 0.2);
+}
+
+.form-group input[type="text"]::placeholder,
+.form-group textarea::placeholder {
+  color: #aaa;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Button Group */
+.form-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.btn-submit {
+  background-color: #2d5d46;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-submit:hover {
+  background-color: #3a7561;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-cancel {
+  background-color: #e0e0e0;
+  color: #555;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #d0d0d0;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Form Header */
+.form-header {
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+}
+
+/* Make sure form labels align properly */
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.form-row label {
+  margin-bottom: 8px;
+}
+
+/* Apply smooth transitions */
+input, textarea, button {
+  transition: all 0.2s ease;
+}
+
+/* Specific styling for existing form elements */
 form {
-  margin-top: 20px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
-input[type="text"], textarea {
-  width: calc(100% - 20px);
-  padding: 10px;
+label {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 8px;
+  display: inline-block;
 }
 
-button {
-  margin-right: 10px;
+input[type="text"] {
+  height: 42px;
+  padding: 0 12px;
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+input[type="text"]:focus {
+  border-color: #3a7561;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(58, 117, 97, 0.2);
+}
+
+textarea {
+  padding: 12px;
+  width: 100%;
+  min-height: 120px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  resize: vertical;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+textarea:focus {
+  border-color: #3a7561;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(58, 117, 97, 0.2);
+}
+
+button[type="submit"], 
+button.submit-question {
+  background-color: #2d5d46;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-right: 15px;
+}
+
+button[type="submit"]:hover,
+button.submit-question:hover {
+  background-color: #3a7561;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+button.cancel {
+  background-color: #e0e0e0;
+  color: #555;
+}
+
+button.cancel:hover {
+  background-color: #d0d0d0;
+  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    padding: 10px;
+  }
+  
+  .post, .question-form {
+    padding: 20px;
+  }
+  
+  .forum-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+  
+  button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .form-buttons {
+    gap: 25px; /* Increase from 15px to 25px */
+    margin-top: 25px;
+    flex-direction: column;
+  }
+  
+  .btn-submit, .btn-cancel {
+    width: 100%;
+  }
 }
